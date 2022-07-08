@@ -17,6 +17,8 @@ tar -xf AFAD-Full.tar.xz
 
 ## Run training
 
+CORN:
+
 ```python
 python resnet34_corn_afad.py \
 --numworkers 3 \
@@ -27,4 +29,46 @@ python resnet34_corn_afad.py \
 --epochs 50 \
 --overwrite true \
 --output_dir ./resnet34_corn_afad_out
+```
+
+CORAL:
+
+```python
+python resnet34_coral_afad.py \
+--numworkers 3 \
+--learningrate 0.0005 \
+--seed 0 \
+--cuda 0 \
+--batchsize 256 \
+--epochs 20 \
+--overwrite true \
+--output_dir ./resnet34_coral_afad_out
+```
+
+Niu et al.:
+
+```python
+python resnet34_niu_afad.py \
+--numworkers 3 \
+--learningrate 0.0005 \
+--seed 0 \
+--cuda 0 \
+--batchsize 256 \
+--epochs 20 \
+--overwrite true \
+--output_dir ./resnet34_niu_afad_out
+```
+
+Regular cross entropy:
+
+```python
+python resnet34_crossentr_afad.py \
+--numworkers 3 \
+--learningrate 0.0005 \
+--seed 0 \
+--cuda 0 \
+--batchsize 256 \
+--epochs 20 \
+--overwrite true \
+--output_dir ./resnet34_crossentr_afad_out
 ```
