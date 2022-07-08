@@ -332,7 +332,10 @@ with torch.no_grad():
         )
 
 s = ('\n\n=========================================\n\n'
-     'Performance of best model based on validation set MAE:'
+     'Performance of best model (based on validation set MAE):'
      f'Train MAE / RMSE: {train_mae:.2f} / {train_rmse:.2f}'
      f'Valid MAE / RMSE: {valid_mae:.2f} / {valid_rmse:.2f}'
      f'Test  MAE / RMSE: {test_mae:.2f} / {test_rmse:.2f}')
+
+with open(LOGFILE_PATH, 'a') as f:
+    f.write(f'{s}\n')

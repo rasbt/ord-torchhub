@@ -31,6 +31,6 @@ This is a GitHub repository containing some deep learning models for ordinal reg
 
 
 
-## Training
+## Training (Optional)
 
 In case you want to reproduce the model training, you can find the respective instructions and files in the [`_train`](./_train) subfolder.
