@@ -192,10 +192,10 @@ if __name__ == '__main__':
     best_valid_mae = torch.tensor(float('inf'))
 
     s = (f'Script: {__file__}\n'
-        f'PyTorch version: {torch.__version__}\n'
-        f'Device: {DEVICE}\n'
-        f'Learning rate: {LEARNING_RATE}\n'
-        f'Batch size: {BATCH_SIZE}\n')
+         f'PyTorch version: {torch.__version__}\n'
+         f'Device: {DEVICE}\n'
+         f'Learning rate: {LEARNING_RATE}\n'
+         f'Batch size: {BATCH_SIZE}\n')
 
     print(s)
     with open(LOGFILE_PATH, 'w') as f:
@@ -225,9 +225,9 @@ if __name__ == '__main__':
             # Logging
             if not batch_idx % LOSS_PRINT_INTERVAL:
                 s = (f'Epoch: {epoch:03d}/{NUM_EPOCHS:03d} | '
-                    f'Batch {batch_idx:04d}/'
-                    f'{len(train_dataset)//BATCH_SIZE:04d} | '
-                    f'Loss: {loss:.4f}')
+                     f'Batch {batch_idx:04d}/'
+                     f'{len(train_dataset)//BATCH_SIZE:04d} | '
+                     f'Loss: {loss:.4f}')
                 print(s)
                 with open(LOGFILE_PATH, 'a') as f:
                     f.write(f'{s}\n')
@@ -248,7 +248,7 @@ if __name__ == '__main__':
                 torch.save(model.state_dict(), BEST_MODEL_PATH)
 
             s = (f'MAE Current Valid: {valid_mae:.2f} Ep. {epoch}'
-                f' | Best Valid: {best_valid_mae:.2f} Ep. {best_epoch}')
+                 f' | Best Valid: {best_valid_mae:.2f} Ep. {best_epoch}')
             s += f'\nTime elapsed: {(time.time() - start_time)/60:.2f} min'
             print(s)
             with open(LOGFILE_PATH, 'a') as f:
@@ -282,10 +282,10 @@ if __name__ == '__main__':
             )
 
     s = ('\n\n=========================================\n\n'
-        'Performance of best model (based on validation set MAE):'
-        f'Train MAE / RMSE: {train_mae:.2f} / {train_rmse:.2f}'
-        f'Valid MAE / RMSE: {valid_mae:.2f} / {valid_rmse:.2f}'
-        f'Test  MAE / RMSE: {test_mae:.2f} / {test_rmse:.2f}')
+         'Performance of best model (based on validation set MAE):'
+         f'Train MAE / RMSE: {train_mae:.2f} / {train_rmse:.2f}'
+         f'Valid MAE / RMSE: {valid_mae:.2f} / {valid_rmse:.2f}'
+         f'Test  MAE / RMSE: {test_mae:.2f} / {test_rmse:.2f}')
 
     with open(LOGFILE_PATH, 'a') as f:
         f.write(f'{s}\n')
