@@ -40,7 +40,7 @@ python resnet34_coral_afad.py \
 --seed 0 \
 --cuda 0 \
 --batchsize 256 \
---epochs 20 \
+--epochs 50 \
 --overwrite true \
 --output_dir ./resnet34_coral_afad_out
 ```
@@ -54,7 +54,7 @@ python resnet34_niu_afad.py \
 --seed 0 \
 --cuda 0 \
 --batchsize 256 \
---epochs 20 \
+--epochs 50 \
 --overwrite true \
 --output_dir ./resnet34_niu_afad_out
 ```
@@ -68,7 +68,7 @@ python resnet34_crossentr_afad.py \
 --seed 0 \
 --cuda 0 \
 --batchsize 256 \
---epochs 20 \
+--epochs 50 \
 --overwrite true \
 --output_dir ./resnet34_crossentr_afad_out
 ```
