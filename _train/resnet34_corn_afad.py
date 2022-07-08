@@ -36,13 +36,12 @@ if __name__ == '__main__':
     OUTPUT_DIR = args.output_dir
     LOSS_PRINT_INTERVAL = args.loss_print_interval
 
-    if args.overwrite:
-        shutil.rmtree(args.output_dir)
-
     if os.path.exists(args.output_dir):
-        raise ValueError('Output directory already exists.')
-    else:
-        os.makedirs(args.output_dir)
+        if args.overwrite:
+            shutil.rmtree(args.output_dir)
+        else:
+            raise ValueError('Output directory already exists.')
+    os.makedirs(args.output_dir)
 
     BEST_MODEL_PATH = os.path.join(args.output_dir, 'best_model.pt')
     LOGFILE_PATH = os.path.join(args.output_dir, 'training.log')
