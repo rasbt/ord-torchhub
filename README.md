@@ -50,3 +50,18 @@ Note that the pretrained versions may only perform well on images from the [AFAD
 ## Training (Optional)
 
 In case you want to reproduce the model training, you can find the respective instructions and files in the [`_train`](./_train) subfolder.
+
+
+
+## App
+
+
+
+Try an interactive App built with [Lightning AI](https://lightning.ai).
+
+
+
+Link: https://bit.ly/3yHA5nk
+
+(The source code for this App can be found under [./app](./app).)
+
