@@ -30,4 +30,6 @@ lightning run app app.py --cloud
 
 
 
-You can try an interactive version at [https://bit.ly/3yHA5nk](https://bit.ly/3yHA5nk).
+[![](images/app-screenshot.png)](https://bit.ly/3aCgSeG)
+
+You can try an interactive version at [https://bit.ly/3aCgSeG](https://bit.ly/3aCgSeG).

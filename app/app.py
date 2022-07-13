@@ -1,22 +1,27 @@
+import os
+
 import gradio as gr
 import lightning as L
-import numpy as np
-import os
 import streamlit as st
 import torch
-import torchvision.transforms as T
-from lightning.app.components.serve import ServeGradio
+from components import MyServeGradioComponent
+from helper import (
+    coral_label_from_logits,
+    corn_label_from_logits,
+    crossentr_label_from_logits,
+    niu_label_from_logits,
+)
 from lightning.app.frontend import StreamlitFrontend
 from torchvision import transforms
-from components import MyServeGradioComponent
-from helper import corn_label_from_logits, coral_label_from_logits, crossentr_label_from_logits, niu_label_from_logits
 
 
 class PyTorchModels(MyServeGradioComponent):
 
     inputs = gr.inputs.Image(type="pil", label="Select an input image")  # required
-    outputs = gr.outputs.Textbox(type="text")  # required
-    examples = [f"./examples/{f}" for f in os.listdir('./examples') if f.endswith('.jpg')]  # required
+    outputs = gr.outputs.Textbox(type="str")  # required
+    examples = [
+        f"./examples/{f}" for f in os.listdir("./examples") if f.endswith(".jpg")
+    ]  # required
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -24,7 +29,7 @@ class PyTorchModels(MyServeGradioComponent):
 
     def predict(self, img):
         img_tensor = self.preprocessor(img)
-        img_tensor.unsqueeze_(0) # adds batch dimension
+        img_tensor.unsqueeze_(0)  # adds batch dimension
 
         corn_model, coral_model, niu_model, crossentr_model = self.model
         with torch.inference_mode():
@@ -33,24 +38,32 @@ class PyTorchModels(MyServeGradioComponent):
             niu_pred = niu_model(img_tensor)
             crossentr_pred = crossentr_model(img_tensor)
 
-        s =  "###########################"
+        s = "###########################"
         s += "\n###### PREDICTED AGE ######"
         s += "\n###########################"
         s += f"\n\nCORN model: {corn_label_from_logits(corn_pred).item()+18} years"
         s += f"\nCORAL model: {coral_label_from_logits(coral_pred).item()+18} years"
         s += f"\nNiu et al. model: {niu_label_from_logits(niu_pred).item()+18} years"
-        s += f"\nCross entropy model: {crossentr_label_from_logits(crossentr_pred).item()+18} years"
-        s += "\n\n(ResNet-34 models trained on AFAD, age range 18-30).\n"\
-             "This is for demo purposes and not an accurate age predictor!"
+        s += (
+            "\nCross entropy model: "
+            f"{crossentr_label_from_logits(crossentr_pred).item()+18} years"
+        )
+        s += (
+            "\n\n(ResNet-34 models trained on AFAD, age range 18-30).\n"
+            "This is for demo purposes and not an accurate age predictor!"
+        )
 
         return s
 
     def build_preprocessor(self):
-        preprocessing = transforms.Compose([
+        preprocessing = transforms.Compose(
+            [
                 transforms.CenterCrop((140, 140)),
                 transforms.Resize((128, 128)),
                 transforms.CenterCrop((120, 120)),
-                transforms.ToTensor()])
+                transforms.ToTensor(),
+            ]
+        )
         return preprocessing
 
     def build_model(self):
@@ -59,29 +72,29 @@ class PyTorchModels(MyServeGradioComponent):
         corn_model = torch.hub.load(
             "rasbt/ord-torchhub",
             model="resnet34_corn_afad",
-            source='github',
-            pretrained=True
+            source="github",
+            pretrained=True,
         )
 
         coral_model = torch.hub.load(
             "rasbt/ord-torchhub",
             model="resnet34_coral_afad",
-            source='github',
-            pretrained=True
+            source="github",
+            pretrained=True,
         )
 
         niu_model = torch.hub.load(
             "rasbt/ord-torchhub",
             model="resnet34_niu_afad",
-            source='github',
-            pretrained=True
+            source="github",
+            pretrained=True,
         )
 
         crossentr_model = torch.hub.load(
             "rasbt/ord-torchhub",
             model="resnet34_crossentr_afad",
-            source='github',
-            pretrained=True
+            source="github",
+            pretrained=True,
         )
 
         all_models = (corn_model, coral_model, niu_model, crossentr_model)
@@ -103,7 +116,8 @@ def your_streamlit_app(lightning_app_state):
     ## Further Resources
     
     1. The research paper describing the losses and model training: 
-        "Deep Neural Networks for Rank-Consistent Ordinal Regression Based On Conditional Probabilities":
+        "Deep Neural Networks for Rank-Consistent Ordinal Regression 
+        Based On Conditional Probabilities":
         [https://arxiv.org/abs/2103.14724](https://arxiv.org/abs/2103.14724)
     2. The source code for this App: [https://github.com/rasbt/ord-torchhub/tree/main/app](https://github.com/rasbt/ord-torchhub/tree/main/app)
     3. The TorchHub repo for the pretrained models loaded into this App: [https://github.com/rasbt/ord-torchhub](https://github.com/rasbt/ord-torchhub)

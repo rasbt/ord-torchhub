@@ -1,5 +1,5 @@
 lightning==2022.6.15
-gradio==3.0.12
+gradio==2.9.4
 streamlit==1.10.0
 torch==1.11
 torchvision==0.12.0
