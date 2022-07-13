@@ -14,12 +14,19 @@ pip install -r requirements.txt
 
 ### 2) Running the App
 
-After setting up the environment, you can run the App as follows:
+After setting up the environment, you can run the App as shown below.
+
+Locally:
 
 ```bash
-lightning run app app.p
+lightning run app app.py
 ```
 
+On the cloud:
+
+```bash
+lightning run app app.py --cloud
+```
 
 
 
